@@ -1,0 +1,21 @@
+PC2_table = [
+    14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10,
+    23, 19, 12, 4, 26, 8, 16, 7, 27, 20, 13, 2,
+    41, 52, 31, 37, 47, 55, 30, 40, 51, 45, 33, 48,
+    44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32
+]
+
+def verify_subsets():
+    first_half = PC2_table[:24]
+    second_half = PC2_table[24:]
+    
+    subset1_check = all(1 <= bit <= 28 for bit in first_half)
+    subset2_check = all(29 <= bit <= 56 for bit in second_half)
+    
+    print(f"First 24 bits: {first_half}")
+    print(f"Are all in range 1-28 (C register)? {subset1_check}")
+    
+    print(f"\nSecond 24 bits: {second_half}")
+    print(f"Are all in range 29-56 (D register)? {subset2_check}")
+
+verify_subsets()
