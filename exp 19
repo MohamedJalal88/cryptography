@@ -1,0 +1,31 @@
+def xor_bytes(b1, b2):
+    return bytes(x ^ y for x, y in zip(b1, b2))
+
+def dummy_3des_encrypt(block, key):
+    return xor_bytes(block, key)
+
+def cbc_encrypt(plaintext_blocks, key, iv):
+    ciphertext_blocks = []
+    previous_block = iv
+    
+    print(f"IV: {iv.hex()}")
+    
+    for i, block in enumerate(plaintext_blocks):
+        chain_input = xor_bytes(block, previous_block)
+        encrypted_block = dummy_3des_encrypt(chain_input, key)
+        ciphertext_blocks.append(encrypted_block)
+        previous_block = encrypted_block
+        print(f"Block {i}: Input={block.hex()} -> XORed={chain_input.hex()} -> Cipher={encrypted_block.hex()}")
+        
+    return ciphertext_blocks
+
+key = b'\x01' * 8
+iv = b'\x00' * 8
+blocks = [b'ABCDEFGH', b'IJKLMNOP']
+
+print("--- CBC Encryption Simulation ---")
+cbc_encrypt(blocks, key, iv)
+
+print("\n--- Comparison: 3DES vs AES (Stronger Algo) ---")
+print("a. For Security? AES (Advanced Encryption Standard). 3DES is deprecated.")
+print("b. For Performance? AES. It is faster and more efficient in software and hardware than 3DES.")
