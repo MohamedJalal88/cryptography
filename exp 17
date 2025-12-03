@@ -1,0 +1,17 @@
+def generate_schedule():
+    shifts = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
+    
+    print("Encryption Key Schedule (Left Shifts):")
+    print(shifts)
+    
+    keys = [f"K{i+1}" for i in range(16)]
+    print(f"Encryption Order: {keys}")
+    
+    decryption_keys = keys[::-1]
+    print(f"Decryption Order: {decryption_keys}")
+    
+    decryption_shifts = shifts[::-1]
+    print("Decryption Shift Schedule (Reverse):")
+    print(decryption_shifts)
+
+generate_schedule()
