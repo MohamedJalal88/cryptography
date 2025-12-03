@@ -1,0 +1,17 @@
+def to_nums(s): return [ord(c)-97 for c in s.replace(" ","").lower()]
+def to_text(n): return "".join([chr(x+97) for x in n])
+
+plaintext = "send more money"
+key_stream = [9, 0, 1, 7, 23, 15, 21, 14, 11, 11, 2, 8, 9]
+
+p_nums = to_nums(plaintext)
+c_nums = [(p + k) % 26 for p, k in zip(p_nums, key_stream)]
+
+print(f"Ciphertext string: {to_text(c_nums)}")
+
+desired_plain = "cash not needed"
+desired_p_nums = to_nums(desired_plain)
+
+new_key_stream = [(c - p) % 26 for c, p in zip(c_nums, desired_p_nums)]
+
+print(f"Required Key Stream: {new_key_stream}")
