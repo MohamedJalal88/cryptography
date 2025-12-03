@@ -1,0 +1,31 @@
+from collections import Counter
+
+def substitution_attack(ciphertext):
+    english_freq_order = "etaoinshrdlucmfwypvbgkqjxz"
+    
+    clean_text = "".join([c.lower() for c in ciphertext if c.isalpha()])
+    counts = Counter(clean_text)
+    
+    sorted_cipher_chars = [pair[0] for pair in counts.most_common()]
+    
+    mapping = {}
+    for i, cipher_char in enumerate(sorted_cipher_chars):
+        if i < len(english_freq_order):
+            mapping[cipher_char] = english_freq_order[i]
+            
+    plaintext = ""
+    for char in ciphertext:
+        lower_char = char.lower()
+        if lower_char in mapping:
+            if char.isupper():
+                plaintext += mapping[lower_char].upper()
+            else:
+                plaintext += mapping[lower_char]
+        else:
+            plaintext += char
+            
+    print("Most Likely Plaintext (based on simple frequency mapping):")
+    print(plaintext)
+
+cipher = "wklv lv d vhfuhw phvvdjh zlwk vxevwlwxwlrq flskhu"
+substitution_attack(cipher)
